@@ -13,7 +13,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * springboot使用swagger2的配置
- * 访问http://localhost:8080/swagger-ui.html可以查看接口文档
+ * 
  * swagger-bootstrap-ui默认访问地址是：http://${host}:${port}/doc.html
  */
 //@Profile("dev")
