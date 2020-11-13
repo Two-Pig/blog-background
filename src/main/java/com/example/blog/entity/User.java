@@ -1,0 +1,9 @@
+package com.example.blog.entity;
+
+import lombok.Data;
+
+@Data
+public class User {
+    private Integer id;
+    private String name;
+}
