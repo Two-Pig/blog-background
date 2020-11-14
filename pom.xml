@@ -60,7 +60,7 @@
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-boot-starter</artifactId>
-            <version>2.0.1</version>
+            <version>3.0.1</version>
         </dependency>
 
         <!-- 使用swagger2 和 knife4j 自动生成接口文档  end-->

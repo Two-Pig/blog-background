@@ -18,9 +18,13 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(loginInterceptor())
-                .addPathPatterns("/**")
-                .excludePathPatterns("/doc.html", "/webjars/**", "/swagger-resources/**", "/service-worker.js");
+        // 需要拦截登录时打开
+//        registry.addInterceptor(loginInterceptor())
+//                .addPathPatterns("/**")
+//                .excludePathPatterns("/login","/doc.html", "/v2/api-docs", "/swagger-resources/**", "/webjars/**");
+//
+
+
         //"/index.html"前面必须带/
                 /*.excludePathPatterns("/assets/**", "/lib/**", "/服务员.png", "/", "/user/login", "/login",
                         "/doc.html", "/webjars/**", "/swagger-resources/**", "/service-worker.js").order(1);*/

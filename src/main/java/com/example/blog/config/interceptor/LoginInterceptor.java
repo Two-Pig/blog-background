@@ -1,65 +1,35 @@
 package com.example.blog.config.interceptor;
 
-import org.apache.logging.log4j.util.Strings;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.blog.config.GlobalConstant;
+import com.example.blog.config.ResultConfig.ResultEnum;
+import com.example.blog.config.exceptionHandle.UserException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
-import java.util.List;
+import javax.servlet.http.HttpSession;
 
 public class LoginInterceptor implements HandlerInterceptor {
-    /*@Autowired
-    private RedisService redisService;
-    @Value("${server.port}")
-    private String port;
-    @Value("${currentIp}")
-    private String currentIp;
-    //前端登陆页面url
-    private String loginUrl = String.format("%s:%s/", currentIp, port);
-*/
+    private Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-//        System.out.println("拦截器出发了。。。" + request.getRequestURL());
-//        String localAddr = request.getLocalAddr();
-//        System.out.println(localAddr);
-//        //多用户可能的token列表
-//        List<String> tokens = Arrays.asList("adminToken", "studentToken", "teacherToken");
-//
-//        String token = "";
-//        for (String tokenFlag :
-//                tokens) {
-//            //在cookie中查找token
-//            token = CookieUtil.getCookie(request, tokenFlag);
-///*
-//            CookieUtil.printCookie(request);
-//*/
-//            //在header中找token(这个是为了使用postman调试时找到token)
-//            String token2 = request.getHeader(tokenFlag);
-//            if (token2 != null) {
-//                token = token2;
-//            }
-//            if (!Strings.isEmpty(token)) {
-//                break;
-//            }
-//        }
-//
-//        //token为空，一定没登陆
-//        //token不为空,不一定登录
-//
-//        if (token != null && !token.isEmpty()) {
-//            String userId = redisService.get(token);
-//            if (userId == null || token.isEmpty()) {
-//                //重定向到前端的登陆页面
-//                response.sendRedirect(loginUrl);
-//                return false;
-//            }
-//        } else {
-//            response.sendRedirect("/");
-//            return false;
-//        }
+        logger.info(request.getRequestURI());
+        final String token = request.getHeader(GlobalConstant.TOKEN_NAME);
+        //token为空，一定没登陆
+        //token不为空,不一定登录,还要看服务器中token是否有效
+        if (token == null) {
+            throw new UserException(ResultEnum.NOT_LOGIN);
+        } else {
+            HttpSession session = request.getSession();
+            Object tokenValue = session.getAttribute("token");
+            if (tokenValue == null) {
+                throw new UserException(ResultEnum.NOT_LOGIN);
+            }
+        }
         return true;
     }
 
@@ -74,8 +44,6 @@ public class LoginInterceptor implements HandlerInterceptor {
      */
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-
-        System.out.println("postHandle...");
 
     }
 

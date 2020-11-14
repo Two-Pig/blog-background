@@ -13,7 +13,8 @@ import lombok.Getter;
 public enum ResultEnum {
     LOGIN_INVALID(-6, "登录过期，请重新登录"),
     ACCOUNT_EXIST(-5, "该账号已被注册使用"),
-    PASSWORD_ERROR(-3, "密码错误或未选择正确角色"),
+    NOT_LOGIN(-4, "用户未登录"),
+    PASSWORD_ERROR(-3, "密码错误"),
     NOTFOUND_USER(-2, "该用户未注册"),
     UNKNOW_ERROR(-1, "未知错误"),
     SUCCESS(0, "成功");

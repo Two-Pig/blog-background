@@ -6,4 +6,7 @@
     <select id="queryAllUser" resultType="com.example.blog.entity.User">
         select * from user
     </select>
+    <select id="queryUserByUserName" resultType="com.example.blog.entity.User">
+        select * from user where username=#{username}
+    </select>
 </mapper>
