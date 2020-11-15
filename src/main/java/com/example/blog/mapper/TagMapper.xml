@@ -2,24 +2,24 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.blog.mapper.TypeMapper">
-    <select id="pageQuery" resultType="com.example.blog.entity.Type">
-        select * from type
+<mapper namespace="com.example.blog.mapper.TagMapper">
+    <select id="pageQuery" resultType="com.example.blog.entity.Tag">
+        select * from tag
         <if test="pageNo != null and pageNo > 0">
             limit ${(pageNo-1)*pageSize},#{pageSize}
         </if>
     </select>
     <select id="queryTotalNum" resultType="Integer">
-        select count(*) from type
+        select count(*) from tag
     </select>
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        insert into type (name) values (#{name})
+        insert into tag (name) values (#{name})
     </insert>
     <delete id="deleteById">
-        delete * from type where id=#{id}
+        delete * from tag where id=#{id}
     </delete>
     <delete id="deleteByIds">
-        delete from type where id in
+        delete from tag where id in
         <foreach collection="array" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>

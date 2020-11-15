@@ -4,7 +4,6 @@ import com.example.blog.entity.User;
 
 import java.util.List;
 
-public interface UserMapper {
-    List<User> queryAllUser();
+public interface UserMapper extends TemplateMapper<User>{
     User queryUserByUserName(String username);
 }

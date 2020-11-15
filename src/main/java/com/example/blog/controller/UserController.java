@@ -6,12 +6,10 @@ import com.example.blog.entity.User;
 import com.example.blog.service.UserService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -23,9 +21,15 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/queryAllUser")
-    public Result queryAllUser(String a, String b) {
-        List<User> users = userService.queryAllUser();
-        return Result.success(users);
+    @GetMapping("/queryUsers")
+    public Result queryAllUser(Integer pageNo, Integer pageSize) {
+        Map map = userService.queryUserByPage(pageNo, pageSize);
+        return Result.success(map);
+    }
+
+    @PostMapping("/addUser")
+    public Result addUser(@RequestBody User user) {
+        Integer result = userService.saveUser(user);
+        return Result.success();
     }
 }

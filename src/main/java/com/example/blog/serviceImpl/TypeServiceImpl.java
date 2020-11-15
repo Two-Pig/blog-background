@@ -46,4 +46,16 @@ public class TypeServiceImpl implements TypeService {
         map.put("totalNum",totalNum);
         return map;
     }
+
+    @Override
+    public Integer saveType(Type type) {
+        return typeMapper.insert(type);
+    }
+
+    @Override
+    public Integer deleteTypeByIds(int[] ids) {
+        return typeMapper.deleteByIds(ids);
+    }
+
+
 }

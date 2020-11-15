@@ -2,24 +2,25 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.blog.mapper.TypeMapper">
-    <select id="pageQuery" resultType="com.example.blog.entity.Type">
-        select * from type
+<mapper namespace="com.example.blog.mapper.BlogMapper">
+    <select id="pageQuery" resultType="com.example.blog.entity.Blog">
+        select * from blog
         <if test="pageNo != null and pageNo > 0">
             limit ${(pageNo-1)*pageSize},#{pageSize}
         </if>
     </select>
     <select id="queryTotalNum" resultType="Integer">
-        select count(*) from type
+        select count(*) from blog
     </select>
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        insert into type (name) values (#{name})
+        insert into blog (title,content,first_picture,flag,views,appreciation,share_statement,commentable,recommend,published,type_id,user_id,create_time,update_time)
+         values (#{title},#{content},#{firstPicture},#{flag},#{views},#{appreciation},#{shareStatement},#{commentable},#{recommend},#{published},#{typeId},#{userId},#{createTime},#{updateTime})
     </insert>
     <delete id="deleteById">
-        delete * from type where id=#{id}
+        delete * from blog where id=#{id}
     </delete>
     <delete id="deleteByIds">
-        delete from type where id in
+        delete from blog where id in
         <foreach collection="array" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>

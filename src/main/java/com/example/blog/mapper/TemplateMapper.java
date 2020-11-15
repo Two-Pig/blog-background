@@ -12,5 +12,6 @@ public interface TemplateMapper<T> {
     Integer queryTotalNum(T entity);
     Integer insert(T entity);
     Integer update(T entity);
-    Integer delete(T entity);
+    Integer deleteById(Integer id);
+    Integer deleteByIds(int[] ids);
 }
