@@ -1,6 +1,7 @@
 package com.example.blog.controller;
 
 import com.example.blog.config.ResultConfig.Result;
+import com.example.blog.entity.Type;
 import com.example.blog.entity.User;
 import com.example.blog.service.UserService;
 import io.swagger.annotations.Api;
