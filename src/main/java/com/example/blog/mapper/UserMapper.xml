@@ -3,14 +3,21 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.blog.mapper.UserMapper">
+    <resultMap id="pageQueryDataList" type="com.example.blog.entity.User">
+
+    </resultMap>
+<!--    <resultMap id="pageQueryTotalNum" type="int"></resultMap>-->
+
     <select id="queryUserByUserName" resultType="com.example.blog.entity.User">
         select * from user where username=#{username}
     </select>
-    <select id="pageQuery" resultType="com.example.blog.entity.User">
-        select * from user
+    <select id="pageQuery" resultMap="pageQueryDataList,pageQueryTotalNum">
+        select sql_calc_found_rows * from user
         <if test="pageNo != null and pageNo > 0">
             limit ${(pageNo-1)*pageSize},#{pageSize}
         </if>
+        ;
+        SELECT found_rows() as pageQueryTotalNum;
     </select>
     <select id="queryTotalNum" resultType="Integer">
         select count(*) from user

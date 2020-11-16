@@ -7,6 +7,7 @@ import java.util.Map;
 public interface BlogService {
     Map queryBlogsByPage(Integer pageNo, Integer pageSize);
     Map queryBlogsByPage(Blog blog, Integer pageNo, Integer pageSize);
+    Map queryBlogsByTypeAndTag(int flagId,int tagId, Integer pageNo, Integer pageSize);
     Integer saveBlog(Blog blog);
     Integer deleteBlogByIds(int[] ids);
 }

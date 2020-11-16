@@ -45,9 +45,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public Map queryUsersByPage(User user, Integer pageNo, Integer pageSize) {
         HashMap<String, Object> map = new HashMap<>();
-        List<User> types = userMapper.pageQuery(user, pageNo, pageSize);
-        Integer totalNum = userMapper.queryTotalNum(user);
-        map.put("types", types);
+        List<List> list = userMapper.pageQuery(user, pageNo, pageSize);
+        List<User> types=(List<User>) list.get(0);
+        int totalNum=(int)list.get(1).get(0);
+        map.put("users", types);
         map.put("totalNum", totalNum);
         return map;
     }

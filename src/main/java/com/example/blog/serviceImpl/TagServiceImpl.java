@@ -1,5 +1,6 @@
 package com.example.blog.serviceImpl;
 
+import com.example.blog.entity.Blog;
 import com.example.blog.entity.Tag;
 import com.example.blog.entity.Type;
 import com.example.blog.mapper.TagMapper;
@@ -27,8 +28,9 @@ public class TagServiceImpl implements TagService {
     @Override
     public Map queryTagsByPage(Tag tag, Integer pageNo, Integer pageSize) {
         HashMap<String, Object> map = new HashMap<>();
-        List<Tag> tags = tagMapper.pageQuery(tag, pageNo, pageSize);
-        Integer totalNum = tagMapper.queryTotalNum(tag);
+        List<List> list = tagMapper.pageQuery(tag, pageNo, pageSize);
+        List<Tag> tags=(List<Tag>) list.get(0);
+        int totalNum=(int)list.get(1).get(0);
         map.put("tags", tags);
         map.put("totalNum", totalNum);
         return map;

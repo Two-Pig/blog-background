@@ -1,5 +1,6 @@
 package com.example.blog.serviceImpl;
 
+import com.example.blog.entity.Tag;
 import com.example.blog.entity.Type;
 import com.example.blog.mapper.TypeMapper;
 import com.example.blog.service.TypeService;
@@ -40,8 +41,9 @@ public class TypeServiceImpl implements TypeService {
     @Override
     public Map queryTypesByPage(Type type, Integer pageNo, Integer pageSize) {
         HashMap<String, Object> map = new HashMap<>();
-        List<Type> types=typeMapper.pageQuery(type,pageNo, pageSize);
-        Integer totalNum=typeMapper.queryTotalNum(type);
+        List<List> list = typeMapper.pageQuery(type, pageNo, pageSize);
+        List<Type> types=(List<Type>) list.get(0);
+        int totalNum=(int)list.get(1).get(0);
         map.put("types",types);
         map.put("totalNum",totalNum);
         return map;
