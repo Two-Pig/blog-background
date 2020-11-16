@@ -8,10 +8,17 @@ import java.util.List;
  * 通用的增删改查模板
  */
 public interface TemplateMapper<T> {
-    List<List> pageQuery(T entity,Integer pageNo,Integer pageSize);
+    List<List> pageQuery(T entity, Integer pageNo, Integer pageSize);
+
     Integer queryTotalNum(T entity);
+
+    T queryOneById(int id);
+
     Integer insert(T entity);
+
     Integer update(T entity);
+
     Integer deleteById(Integer id);
+
     Integer deleteByIds(int[] ids);
 }

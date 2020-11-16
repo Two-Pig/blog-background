@@ -1,12 +1,16 @@
 package com.example.blog.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.google.common.collect.Lists;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 @Data
-public class Blog {
+public class Blog<T> {
     private Integer id;
     private String title;
     private String content;
@@ -24,4 +28,5 @@ public class Blog {
     private Date createTime;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date updateTime;
+    private List<T> tags= new ArrayList<>();
 }

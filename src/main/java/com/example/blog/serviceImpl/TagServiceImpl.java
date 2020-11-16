@@ -37,6 +37,11 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
+    public List<Tag> queryTagsByBlogId(int blogId) {
+        return null;
+    }
+
+    @Override
     public Integer saveTag(Tag tag) {
         return tagMapper.insert(tag);
     }

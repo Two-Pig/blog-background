@@ -5,7 +5,9 @@ import com.example.blog.entity.Tag;
 import com.example.blog.mapper.BlogMapper;
 import com.example.blog.mapper.TagMapper;
 import com.example.blog.service.BlogService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,8 +17,11 @@ import java.util.Map;
 public class BlogServiceImpl implements BlogService {
     private final BlogMapper blogMapper;
 
-    public BlogServiceImpl(BlogMapper blogMapper) {
+    private final TagMapper tagMapper;
+
+    public BlogServiceImpl(BlogMapper blogMapper, TagMapper tagMapper) {
         this.blogMapper = blogMapper;
+        this.tagMapper = tagMapper;
     }
 
     @Override
@@ -46,9 +51,22 @@ public class BlogServiceImpl implements BlogService {
         return map;
     }
 
+    @Transactional
+    @Override
+    public Blog queryOneBlogById(int blogId) {
+         Blog blog = blogMapper.queryOneById(blogId);
+         blog.setTags(tagMapper.queryTagsByBlogId(blogId));
+        return blog;
+    }
+
     @Override
     public Integer saveBlog(Blog blog) {
         return blogMapper.insert(blog);
+    }
+
+    @Override
+    public Integer updateBlog(Blog blog) {
+        return blogMapper.update(blog);
     }
 
     @Override

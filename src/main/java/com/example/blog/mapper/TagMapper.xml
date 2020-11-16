@@ -15,6 +15,9 @@
         ;
         SELECT found_rows() as pageQueryTotalNum;
     </select>
+    <select id="queryTagsByBlogId" resultType="com.example.blog.entity.Tag">
+        select * from tag where id in (select tag_id from tag_blog where blog_id=#{blogId})
+    </select>
     <select id="queryTotalNum" resultType="Integer">
         select count(*) from tag
     </select>

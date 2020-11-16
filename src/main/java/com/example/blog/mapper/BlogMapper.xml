@@ -37,6 +37,9 @@
     <select id="queryTotalNum" resultType="Integer">
         select count(*) from blog
     </select>
+    <select id="queryOneById" resultType="com.example.blog.entity.Blog">
+        select * from blog where id=#{id}
+    </select>
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         insert into blog (title,content,first_picture,flag,views,appreciation,share_statement,commentable,recommend,published,type_id,user_id,create_time,update_time)
          values (#{title},#{content},#{firstPicture},#{flag},#{views},#{appreciation},#{shareStatement},#{commentable},#{recommend},#{published},#{typeId},#{userId},#{createTime},#{updateTime})
@@ -44,6 +47,10 @@
     <delete id="deleteById">
         delete * from blog where id=#{id}
     </delete>
+    <update id="update">
+        update blog set title=#{title},content=#{content},update_time=#{updateTime}
+        where id=#{id}
+    </update>
     <delete id="deleteByIds">
         delete from blog where id in
         <foreach collection="array" item="id" open="(" separator="," close=")">

@@ -4,14 +4,16 @@ import com.example.blog.config.ResultConfig.Result;
 import com.example.blog.config.ResultConfig.ResultEnum;
 import com.example.blog.entity.Blog;
 import com.example.blog.service.BlogService;
+import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotNull;
 import java.util.Map;
 
 @RestController
 public class BlogController {
-    
+
     private final BlogService blogService;
 
     public BlogController(BlogService blogService) {
@@ -24,6 +26,15 @@ public class BlogController {
         return Result.success(map);
     }
 
+    @GetMapping("/queryBlogById")
+    public Result queryBlogById(@RequestParam Integer id) {
+        if (id == null) {
+            return Result.error("id不能为空");
+        }
+        Blog blog = blogService.queryOneBlogById(id);
+        return Result.success(blog);
+    }
+
     @PostMapping("/addBlog")
     public Result addBlog(@RequestBody Blog blog) {
         Integer result = blogService.saveBlog(blog);
@@ -33,10 +44,16 @@ public class BlogController {
         return Result.error(ResultEnum.UNKNOW_ERROR);
     }
 
-    @DeleteMapping("/deleteBlog")
+    @PostMapping("/updateBlog")
+    public Result updateBlog(@RequestBody Blog blog) {
+        blogService.updateBlog(blog);
+        return Result.success();
+    }
+
     /**
      * 也可以用 List<int> 接受数组
      */
+    @DeleteMapping("/deleteBlog")
     public Result deleteBlog(@RequestBody int[] ids) {
         blogService.deleteBlogByIds(ids);
         return Result.success();
