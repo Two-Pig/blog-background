@@ -9,14 +9,20 @@
 <!--    <resultMap id="pageQueryTotalNum1" type="int"></resultMap>-->
     <select id="pageQuery" resultMap="pageQueryDataList,pageQueryTotalNum">
         select sql_calc_found_rows * from tag
-        <if test="pageNo != null and pageNo > 0">
-            limit ${(pageNo-1)*pageSize},#{pageSize}
+        <if test="pageSize!=null and pageSize > 0">
+            limit
+            <if test="pageNo != null and pageNo > 0">
+                ${(pageNo-1)*pageSize},
+            </if>
+            <if test="pageSize!=null and pageSize > 0">
+                #{pageSize}
+            </if>
         </if>
         ;
         SELECT found_rows() as pageQueryTotalNum;
     </select>
     <select id="queryTagsByBlogId" resultType="com.example.blog.entity.Tag">
-        select * from tag where id in (select tag_id from tag_blog where blog_id=#{blogId})
+        select * from tag where id in (select tag_id from blog_tag where blog_id=#{blogId})
     </select>
     <select id="queryTotalNum" resultType="Integer">
         select count(*) from tag

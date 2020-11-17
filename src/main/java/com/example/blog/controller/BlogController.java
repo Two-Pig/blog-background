@@ -45,7 +45,7 @@ public class BlogController {
     }
 
     @PostMapping("/updateBlog")
-    public Result updateBlog(@RequestBody Blog blog) {
+    public Result updateBlog(@RequestBody Blog<Integer> blog) {
         blogService.updateBlog(blog);
         return Result.success();
     }

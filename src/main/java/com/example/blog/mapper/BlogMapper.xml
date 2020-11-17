@@ -4,11 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.blog.mapper.BlogMapper">
     <resultMap id="pageQueryDataList" type="com.example.blog.entity.Blog">
-
     </resultMap>
     <!--这个resultMap 会在其他mapper文件中生效，其他mapper不能再配置-->
-    <resultMap id="pageQueryTotalNum" type="Integer"></resultMap>
-    <select id="pageQuery" resultMap="pageQueryDataList,pageQueryTotalNum">
+    <resultMap id="pageQueryTotalNum" type="Integer" autoMapping="true"></resultMap>
+    <select id="pageQuery" resultMap="pageQueryDataList , pageQueryTotalNum">
         select sql_calc_found_rows * from blog
         <if test="pageSize!=null and pageSize > 0">
             limit
@@ -22,17 +21,33 @@
         ;
         select found_rows() as pageQueryTotalNum;
     </select>
-    <select id="pageQueryByType" resultType="com.example.blog.entity.Blog">
-        select * from blog where type_id = #{typeId }
-        <if test="pageNo != null and pageNo > 0">
-            limit ${(pageNo-1)*pageSize},#{pageSize}
+    <select id="pageQueryByType" resultMap="pageQueryDataList,pageQueryTotalNum">
+        select sql_calc_found_rows * from blog where type_id = #{typeId }
+        <if test="pageSize!=null and pageSize > 0">
+            limit
+            <if test="pageNo != null and pageNo > 0">
+                ${(pageNo-1)*pageSize},
+            </if>
+            <if test="pageSize!=null and pageSize > 0">
+                #{pageSize}
+            </if>
         </if>
+        ;
+        select found_rows() as pageQueryTotalNum;
     </select>
-    <select id="pageQueryByTypeAndTag" resultType="com.example.blog.entity.Blog">
-        select * from blog where type_id = #{typeId} and id in (select id from blog_tag where tag_id=#{tagId})
-        <if test="pageNo != null and pageNo > 0">
-            limit ${(pageNo-1)*pageSize},#{pageSize}
+    <select id="pageQueryByTypeAndTag" resultMap="pageQueryDataList,pageQueryTotalNum">
+        select sql_calc_found_rows * from blog where type_id = #{typeId} and id in (select id from blog_tag where tag_id=#{tagId})
+        <if test="pageSize!=null and pageSize > 0">
+            limit
+            <if test="pageNo != null and pageNo > 0">
+                ${(pageNo-1)*pageSize},
+            </if>
+            <if test="pageSize!=null and pageSize > 0">
+                #{pageSize}
+            </if>
         </if>
+        ;
+        select found_rows() as pageQueryTotalNum;
     </select>
     <select id="queryTotalNum" resultType="Integer">
         select count(*) from blog

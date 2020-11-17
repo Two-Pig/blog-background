@@ -3,8 +3,10 @@ package com.example.blog.serviceImpl;
 import com.example.blog.entity.Blog;
 import com.example.blog.entity.Tag;
 import com.example.blog.mapper.BlogMapper;
+import com.example.blog.mapper.BlogTagMapper;
 import com.example.blog.mapper.TagMapper;
 import com.example.blog.service.BlogService;
+import com.example.blog.service.BlogTagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,9 +21,15 @@ public class BlogServiceImpl implements BlogService {
 
     private final TagMapper tagMapper;
 
-    public BlogServiceImpl(BlogMapper blogMapper, TagMapper tagMapper) {
+    private final BlogTagService blogTagService;
+
+    private final BlogTagMapper blogTagMapper;
+
+    public BlogServiceImpl(BlogTagService blogTagService, TagMapper tagMapper, BlogMapper blogMapper, BlogTagMapper blogTagMapper) {
         this.blogMapper = blogMapper;
         this.tagMapper = tagMapper;
+        this.blogTagService = blogTagService;
+        this.blogTagMapper = blogTagMapper;
     }
 
     @Override
@@ -66,11 +74,19 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public Integer updateBlog(Blog blog) {
+        List<Integer> tags = blog.getTags();
+        tags.forEach(tag->{
+            blogTagService.update(tag,blog.getId());
+        });
         return blogMapper.update(blog);
     }
 
+    @Transactional
     @Override
     public Integer deleteBlogByIds(int[] ids) {
+        for (int id:ids){
+            blogTagMapper.deleteBlogTagByBlogId(id);
+        }
         return blogMapper.deleteByIds(ids);
     }
 }
