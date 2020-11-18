@@ -2,7 +2,6 @@ package com.example.blog.service;
 
 import com.example.blog.entity.Type;
 
-import java.util.List;
 import java.util.Map;
 
 public interface TypeService {

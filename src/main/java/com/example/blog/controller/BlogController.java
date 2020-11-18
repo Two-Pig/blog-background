@@ -4,11 +4,9 @@ import com.example.blog.config.ResultConfig.Result;
 import com.example.blog.config.ResultConfig.ResultEnum;
 import com.example.blog.entity.Blog;
 import com.example.blog.service.BlogService;
-import net.bytebuddy.asm.Advice;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.NotNull;
 import java.util.Map;
 
 @RestController
@@ -33,6 +31,12 @@ public class BlogController {
         }
         Blog blog = blogService.queryOneBlogById(id);
         return Result.success(blog);
+    }
+
+    @GetMapping("/queryBlogsByTypeOrTag")
+    public Result queryBlogsByTypeOrTag(Integer typeId, Integer tagId, Integer pageNo, Integer pageSize) {
+        Map map = blogService.queryBlogsByTypeAndTag(typeId, tagId, pageNo, pageSize);
+        return Result.success(map);
     }
 
     @PostMapping("/addBlog")

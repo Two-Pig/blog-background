@@ -3,9 +3,7 @@ package com.example.blog.controller;
 import com.example.blog.config.ResultConfig.Result;
 import com.example.blog.config.ResultConfig.ResultEnum;
 import com.example.blog.entity.Tag;
-import com.example.blog.entity.Type;
 import com.example.blog.service.TagService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;

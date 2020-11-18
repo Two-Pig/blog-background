@@ -36,7 +36,13 @@
         select found_rows() as pageQueryTotalNum;
     </select>
     <select id="pageQueryByTypeAndTag" resultMap="pageQueryDataList,pageQueryTotalNum">
-        select sql_calc_found_rows * from blog where type_id = #{typeId} and id in (select id from blog_tag where tag_id=#{tagId})
+        select sql_calc_found_rows * from blog where 1=1
+        <if test="typeId!=null">
+            and type_id = #{typeId}
+        </if>
+        <if test="tagId!=null">
+            and id in (select id from blog_tag where tag_id=#{tagId})
+        </if>
         <if test="pageSize!=null and pageSize > 0">
             limit
             <if test="pageNo != null and pageNo > 0">

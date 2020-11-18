@@ -3,13 +3,15 @@ package com.example.blog.serviceImpl;
 import com.example.blog.entity.BlogTag;
 import com.example.blog.mapper.BlogTagMapper;
 import com.example.blog.service.BlogTagService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BlogTagServiceImpl implements BlogTagService {
-    @Autowired
-    private BlogTagMapper blogTagMapper;
+    private final BlogTagMapper blogTagMapper;
+
+    public BlogTagServiceImpl(BlogTagMapper blogTagMapper) {
+        this.blogTagMapper = blogTagMapper;
+    }
 
     @Override
     public int update(int blogId, int tagId) {

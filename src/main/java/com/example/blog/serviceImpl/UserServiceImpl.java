@@ -3,15 +3,12 @@ package com.example.blog.serviceImpl;
 import com.example.blog.config.GlobalConstant;
 import com.example.blog.config.ResultConfig.ResultEnum;
 import com.example.blog.config.exceptionHandle.UserException;
-import com.example.blog.entity.Type;
 import com.example.blog.entity.User;
 import com.example.blog.mapper.UserMapper;
 import com.example.blog.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
-import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -46,8 +43,8 @@ public class UserServiceImpl implements UserService {
     public Map queryUsersByPage(User user, Integer pageNo, Integer pageSize) {
         HashMap<String, Object> map = new HashMap<>();
         List<List> list = userMapper.pageQuery(user, pageNo, pageSize);
-        List<User> types=(List<User>) list.get(0);
-        int totalNum=(int)list.get(1).get(0);
+        List<User> types = (List<User>) list.get(0);
+        int totalNum = (int) list.get(1).get(0);
         map.put("users", types);
         map.put("totalNum", totalNum);
         return map;

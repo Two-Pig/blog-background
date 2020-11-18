@@ -29,7 +29,7 @@
         select count(*) from user
     </select>
     <insert id="insert">
-        insert into user (nickname,username,password,email,create_time,update_time)
-         values (#{nickname},#{username},#{password},#{email},#{createTime},#{updateTime})
+        insert into user (nickname,username,password,email,avatar,type,create_time,update_time)
+         values (#{nickname},#{username},#{password},#{email},#{avatar},#{type},#{createTime},#{updateTime})
     </insert>
 </mapper>

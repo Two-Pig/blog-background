@@ -1,8 +1,6 @@
 package com.example.blog.serviceImpl;
 
-import com.example.blog.entity.Blog;
 import com.example.blog.entity.Tag;
-import com.example.blog.entity.Type;
 import com.example.blog.mapper.TagMapper;
 import com.example.blog.service.TagService;
 import org.springframework.stereotype.Service;

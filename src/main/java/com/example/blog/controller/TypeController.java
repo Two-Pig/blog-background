@@ -4,13 +4,12 @@ import com.example.blog.config.ResultConfig.Result;
 import com.example.blog.config.ResultConfig.ResultEnum;
 import com.example.blog.entity.Type;
 import com.example.blog.service.TypeService;
-import io.swagger.models.auth.In;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.List;
+
 import java.util.Map;
 
 @RestController
