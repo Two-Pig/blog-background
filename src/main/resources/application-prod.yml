@@ -1,7 +1,7 @@
 #logging.file.name=1.log  # 默认是spring.log
 logging:
   file:
-    path: ../logs
+    path: ../logFiles
 
 spring:
   datasource:
