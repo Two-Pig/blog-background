@@ -9,6 +9,8 @@ import com.example.blog.service.UserService;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -52,7 +54,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Integer saveUser(User user) {
-        Date date = new Date();
+        LocalDateTime date= LocalDateTime.now();
         user.setCreateTime(date);
         return userMapper.insert(user);
     }

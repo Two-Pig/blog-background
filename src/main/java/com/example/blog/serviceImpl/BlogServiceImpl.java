@@ -6,12 +6,12 @@ import com.example.blog.mapper.BlogTagMapper;
 import com.example.blog.mapper.TagMapper;
 import com.example.blog.service.BlogService;
 import com.example.blog.service.BlogTagService;
+import org.apache.tomcat.jni.Local;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Service
 public class BlogServiceImpl implements BlogService {
@@ -67,6 +67,8 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public Integer saveBlog(Blog blog) {
+        LocalDateTime date= LocalDateTime.now();
+        blog.setCreateTime(date);
         return blogMapper.insert(blog);
     }
 
