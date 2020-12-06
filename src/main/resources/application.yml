@@ -1,6 +1,7 @@
 spring:
   profiles:
     active: dev
+
 #logging.file.name=1.log  # 默认是spring.log
 logging:
   # 修改输出到文件的日志格式
